@@ -1,28 +1,60 @@
-# Authentication
+# **🛡️ User Authentication API with SQLite & bcrypt**
 
-Given an `app.js` file and a database file `userData.db` consisting of a  table `user`.
 
-Write APIs to perform operations on the table `user` containing the following columns,
+This project implements user authentication APIs using **Node.js**, **Express.js**, and **SQLite**. It includes user **registration, login, and password update** functionality.
 
-**User Table**
 
-| Column   | Type    |
-| -------- | ------- |
+
+---
+
+
+
+## 🚀 Features
+ ✔️ Register users securely with password hashing <br/>
+ ✔️ Login with username and password validation <br/>
+ ✔️ Update Password with old password verification <br/>
+ ✔️ Secure password handling using `bcrypt` <br/>
+
+## 📌 Technologies Used
+
+- **Node.js**: JavaScript runtime for building the backend.
+- **Express.js**: Framework for handling API routes.
+- **SQLite**: Database for storing user data.
+- **bcrypt**: Library for hashing passwords.
+- **nodemon**: Tool that automatically restarts the server during development when files change.
+
+
+## 📂 Project Structure
+- **app.js** - Express server setup & API routes
+- **userData.db** - SQLite database storing user details
+- **package.json** - Dependencies & scripts
+
+
+---
+
+## Database Schema
+
+The project uses an SQLite database with a single table:
+
+### `user` Table
+
+| Column   | Type |
+|----------|------|
 | username | TEXT |
-| name     | TEXT    |
-| password | TEXT    |
-| gender   | TEXT    |
-|location|TEXT|
+| name     | TEXT |
+| password | TEXT |
+| gender   | TEXT |
+| location | TEXT |
 
-### API 1
+## API Endpoints
 
-#### Path: `/register`
+### 1️⃣ User Registration
 
-#### Method: `POST`
+**Endpoint:**  
+`POST /register`
 
-**Request**
-
-```
+**Request Body:**
+```json
 {
   "username": "adam_richard",
   "name": "Adam Richard",
@@ -31,186 +63,51 @@ Write APIs to perform operations on the table `user` containing the following co
   "location": "Detroit"
 }
 ```
+## Scenarios:
 
-- **Scenario 1**
+🚨 User already exists → 400 "User already exists" <br/>
+🔑 Password too short (< 5 characters) → 400 "Password is too short" <br/>
+✅ Successful registration → 200 "User created successfully" <br/>
 
-  - **Description**:
+### 2️⃣ User Login
 
-    If the username already exists
+**Endpoint:**  
+`POST /login`
 
-  - **Response**
-    - **Status code**
-      ```
-      400
-      ```
-    - **Status text**
-      ```
-      User already exists
-      ```
-
-- **Scenario 2**
-
-  - **Description**:
-
-    If the registrant provides a password with less than 5 characters
-
-  - **Response**
-    - **Status code**
-      ```
-      400
-      ```
-    - **Status text**
-      ```
-      Password is too short
-      ```
-
-- **Scenario 3**
-
-  - **Description**:
-
-    Successful registration of the registrant
-
-  - **Response**
-      - **Status code**
-        ```
-        200
-        ```
-      - **Status text**
-       ```
-       User created successfully
-       ```
-
-### API 2
-
-#### Path: `/login`
-
-#### Method: `POST`
-
-**Request**
-```
+**Request Body:**
+```json
 {
   "username": "adam_richard",
   "password": "richard_567"
 }
 ```
+## Scenarios:
+🚨 Invalid user → 400 "Invalid user" <br/> 🔑 Invalid password → 400 "Invalid password" <br/> ✅ Successful login → 200 "Login success!" <br/>
 
-- **Scenario 1**
+### 3️⃣ Change Password
+**Endpoint:**
+`PUT /change-password`
 
-  - **Description**:
-
-    If an unregistered user tries to login
-
-  - **Response**
-    - **Status code**
-      ```
-      400
-      ```
-    - **Status text**
-      ```
-      Invalid user
-      ```
-
-- **Scenario 2**
-
-  - **Description**:
-
-    If the user provides incorrect password
-
-  - **Response**
-    - **Status code**
-      ```
-      400
-      ```
-    - **Status text**
-      ```
-      Invalid password
-      ```
-
-- **Scenario 3**
-
-  - **Description**:
-
-    Successful login of the user
-
-  - **Response**
-    - **Status code**
-      ```
-      200
-      ```
-    - **Status text**
-      ```
-      Login success!
-      ```
-
-### API 3
-
-#### Path: `/change-password`
-
-#### Method: `PUT`
-
-**Request**
+Request Body:
 
 ```
+json
 {
   "username": "adam_richard",
   "oldPassword": "richard_567",
   "newPassword": "richard@123"
 }
 ```
-
-- **Scenario 1**
-
-  - **Description**:
-
-    If the user provides incorrect current password
-
-  - **Response**
-    - **Status code**
-      ```
-      400
-      ```
-    - **Status text**
-      ```
-      Invalid current password
-      ```
-
-- **Scenario 2**
-
-  - **Description**:
-
-    If the user provides new password with less than 5 characters
-
-  - **Response**
-    - **Status code**
-      ```
-      400
-      ```
-    - **Status text**
-      ```
-      Password is too short
-      ```
-
-- **Scenario 3**
-
-  - **Description**:
-
-    Successful password update
-
-  - **Response**
-    - **Status code**
-      ```
-      200
-      ```
-    - **Status text**
-      ```
-      Password updated
-      ```
+## Scenarios:
+🚨 Invalid current password → 400 "Invalid current password" <br/> 🔑 Password too short (< 5 characters) → 400 "Password is too short" <br/> ✅ Successful password update → 200 "Password updated" <br/>
 
 
-<br/>
+## 🧑‍💻 Author
 
-Use `npm install` to install the packages.
+**Manoj Kumar**  
+GitHub: [Manojkumar2806](https://github.com/Manojkumar2806)  
+Feel free to explore, fork, and contribute!
 
-**Export the express instance using the default export syntax.**
+## 🙏 Acknowledgments
 
-**Use Common JS module syntax.**
+Thank you for taking the time to check out this project! If you have suggestions, improvements, or feedback, don't hesitate to open an issue or submit a pull request. Your input is much appreciated!
